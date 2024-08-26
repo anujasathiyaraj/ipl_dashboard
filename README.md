@@ -166,4 +166,3 @@ RETURN
             DIVIDE(TotalRunsC, TotalBallsB,0) *6,
             BLANK()
         ))
-![image](https://github.com/user-attachments/assets/be264f4f-fe3d-4695-8d5e-9fcd1d9a0750)
