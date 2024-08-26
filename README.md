@@ -145,8 +145,7 @@ Dot Balls % Min 60 Balls =
                     VALUES(dim_match_summary[Year]),
                     [Total balls bowled] >= 60
                 )
-            ),
-                    
+            ),       
             dim_match_summary[Year] >= 2021 &&
             dim_match_summary[Year] <= 2023
         )
