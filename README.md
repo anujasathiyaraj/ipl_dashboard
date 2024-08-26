@@ -106,6 +106,34 @@ RETURN
 
 Total Wickets = Sum(fact_bowling_summary[wickets])
 
+Economy Rate min 60 Balls = 
+VAR TotalRunsC = [Total Runs Conceded]
+VAR TotalBallsB = [Total Balls Bowled]
+VAR SeasonsOver60Balls =
+    CALCULATE(
+        COUNTROWS(
+            FILTER(
+                VALUES(dim_match_summary[Year]),
+                [Total Balls Bowled] >= 60
+            )
+        ),
+        dim_match_summary[Year] >= 2021 &&
+        dim_match_summary[Year] <= 2023
+    )
+RETURN
+    IF(
+        NOT ISFILTERED(dim_match_summary[Year]),
+        IF(
+            SeasonsOver60Balls = 3,
+            Divide(TotalRunsC, TotalBallsB,0) * 6,
+            BLANK()
+        ),
+        IF(
+            [Total Balls Bowled] >= 60,
+            DIVIDE(TotalRunsC, TotalBallsB,0) *6,
+            BLANK()
+        ))
+
 
 Dot Balls % Min 60 Balls = 
     VAR TotalDotBalls = [Dot Balls]
@@ -137,32 +165,3 @@ Dot Balls % Min 60 Balls =
         )
         )
 
-
-
-Economy Rate min 60 Balls = 
-VAR TotalRunsC = [Total Runs Conceded]
-VAR TotalBallsB = [Total Balls Bowled]
-VAR SeasonsOver60Balls =
-    CALCULATE(
-        COUNTROWS(
-            FILTER(
-                VALUES(dim_match_summary[Year]),
-                [Total Balls Bowled] >= 60
-            )
-        ),
-        dim_match_summary[Year] >= 2021 &&
-        dim_match_summary[Year] <= 2023
-    )
-RETURN
-    IF(
-        NOT ISFILTERED(dim_match_summary[Year]),
-        IF(
-            SeasonsOver60Balls = 3,
-            Divide(TotalRunsC, TotalBallsB,0) * 6,
-            BLANK()
-        ),
-        IF(
-            [Total Balls Bowled] >= 60,
-            DIVIDE(TotalRunsC, TotalBallsB,0) *6,
-            BLANK()
-        ))
