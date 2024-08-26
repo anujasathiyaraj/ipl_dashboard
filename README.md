@@ -167,7 +167,6 @@ Dot Balls % Min 60 Balls =
 New Table = 
 UNION(
     SELECTCOLUMNS(dim_match_summary, "Team", dim_match_summary[team1], "Winner", dim_match_summary[winner], "win_flag", IF(dim_match_summary[team1] = dim_match_summary[winner], 1, 0)),
-    
     SELECTCOLUMNS(dim_match_summary, "Team", dim_match_summary[team2], "Winner", dim_match_summary[winner], "win_flag", IF(dim_match_summary[team2] = dim_match_summary[winner], 1, 0))
 )
 
